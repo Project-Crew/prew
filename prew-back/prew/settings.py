@@ -36,13 +36,46 @@ INSTALLED_APPS = [
     'posts',
     'accounts',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # account 관련
+    'django.contrib.auth',
+    'django.contrib.messages',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount'
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.naver',
 ]
 
+# -------------------------------------------------
+# account 관련 settings.py 수정 사항
+SITE_ID = 1
+
+AUTH_USER_MODEL = "someapp.user"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SOCIALACCOUNT_PROVIDERS = {
+    # Facebook
+        # 'APP': {
+        #     'client_id': '123',
+        #     'secret': '456',
+        #     'key': ''
+        # }
+        
+    # Google
+
+    # Kakao
+
+    # Naver
+}
+# -------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
