@@ -2,13 +2,12 @@ import React from "react";
 import Navigator from "./Navigator";
 import Header from "./Header";
 import Footer from "./Footer";
-import Loading from "./Loading";
+import styles from "../style/components/AppLayout.module.scss";
 const AppLayout = ({ children }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <Header />
       <Navigator />
-      <Loading />
       {children}
       <Footer />
     </div>

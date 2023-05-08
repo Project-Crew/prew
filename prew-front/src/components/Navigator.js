@@ -1,6 +1,8 @@
 import React from "react";
 import { TabMenu } from "primereact/tabmenu";
-
+import classNames from "classnames/bind";
+import styles from "../style/components/Navigator.module.scss";
+const cx = classNames.bind(styles);
 const Navigator = () => {
   const items = [
     { label: "홈", icon: "pi pi-fw pi-home" },
@@ -10,9 +12,11 @@ const Navigator = () => {
   ];
 
   return (
-    <div className="card">
-      <TabMenu model={items} />
-    </div>
+    <nav className={styles.container}>
+      <div className={cx("card", "wrap")}>
+        <TabMenu model={items} />
+      </div>
+    </nav>
   );
 };
 
