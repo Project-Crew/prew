@@ -1,11 +1,11 @@
 import React from 'react';
 
-const MyScrap = () => {
+const Post = () => {
     return (
         <div>
-            MyScrap
+            Post
         </div>
     );
 };
 
-export default MyScrap;
+export default Post;
