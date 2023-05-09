@@ -1,11 +1,11 @@
 import React from 'react';
 
-const MyScrap = () => {
+const PostsList = () => {
     return (
         <div>
-            MyScrap
+            PostsList
         </div>
     );
 };
 
-export default MyScrap;
+export default PostsList;

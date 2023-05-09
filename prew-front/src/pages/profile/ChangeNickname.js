@@ -1,7 +1,7 @@
 import React from "react";
 
 const ChangeNickname = () => {
-  return <div></div>;
+  return <div>ChangeNickname</div>;
 };
 
 export default ChangeNickname;
