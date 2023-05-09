@@ -12,5 +12,3 @@ def delete_user(request):
 
 def find_password(request):
     pass
-
-
