@@ -84,6 +84,25 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 # SignupForm 사용 설정
 ACCOUNT_SIGNUP_FORM_CLASS = "accounts.forms.SignupForm"
+
+# 비밀번호 유효성 검사 클래스 사용
+AUTH_PASSWORD_VALIDATORS = [
+    { "NAME" : "accounts.validators.CustomPasswordValidator"}
+]
+
+# True이면 회원가입 폼이 유효하지 않아도 폼에 작성했던 내용을 모두 지우지 않고 비밀번호를 유지시켜줌.
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
+
+
+# 이메일 인증을 성공해야 로그인 할 수 있음. "optional"은 인증 안해도 로그인 됨.
+ACCOUNT_EMAIL_VARIFICATION = "mandatory"
+
+# 이메일로 전송된 링크를 누르면 바로 회원가입이 완료됨.
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+# 이메일 인증 완료했을 때 해당 name의 url로 redirect
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "account_email_confirmation"
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "account_email_confirmation"
 # -------------------------------------------------
 
 
