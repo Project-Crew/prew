@@ -34,8 +34,11 @@ const ProfileUserInfo = () => {
           </div>
           <div>eunhee@naver.com</div>
           <div>
-            <Button className="mr-3 py-2" label="비밀번호 변경하러 가기" />
-            <Button className="py-2" label="닉네임 변경하러 가기" />
+            <Button
+              className="mr-3 py-2 text-sm"
+              label="비밀번호 변경하러 가기"
+            />
+            <Button className="py-2 text-sm" label="닉네임 변경하러 가기" />
           </div>
         </div>
       </div>

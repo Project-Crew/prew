@@ -7,16 +7,8 @@
   :global(.p-tabview .p-tabview-nav) {
     border-width: 2px 0 2px 0;
   }
-  :global(.p-highlight) {
-    border-bottom: 5px;
-    border-color: red;
-  }
 
   :global(.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link) {
-    // border-color: $PR_PURPLE;
-    // border-width: 2px 0 0 0;
-    // color: $PR_PURPLE;
-    // border-radius: 0;
     color: $PR_BLUE;
     background-color: transparent;
   }
