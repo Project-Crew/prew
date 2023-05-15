@@ -5,10 +5,10 @@ import Footer from "./Footer";
 import styles from "../style/components/AppLayout.module.scss";
 const AppLayout = ({ children }) => {
   return (
-    <div className={styles.container}>
+    <div className="py-5 px-7 overflow-x-hidden">
       <Header />
       <Navigator />
-      {children}
+      <div className={styles.childContainer}>{children}</div>
       <Footer />
     </div>
   );

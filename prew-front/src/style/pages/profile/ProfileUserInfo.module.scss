@@ -1,0 +1,36 @@
+@import "../../common/variables";
+
+.avatarContainer {
+  .avatar {
+    position: relative;
+    :global(.p-avatar.p-avatar-xl .p-avatar-icon) {
+      font-size: 3.65rem;
+    }
+    .badge {
+      border-radius: 50%;
+      background-color: $white;
+      border: 1.5px solid $PR_PURPLE;
+      padding: 3px;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      &:hover {
+        cursor: pointer;
+        background-color: $PR_PURPLE;
+        svg {
+          color: $white;
+          font-weight: 600;
+        }
+      }
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
