@@ -16,6 +16,7 @@ const Navigator = () => {
       <div className={cx("card", "wrap")}>
         <TabMenu model={items} />
       </div>
+      <hr />
     </nav>
   );
 };

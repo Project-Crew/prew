@@ -1,0 +1,15 @@
+@import "../../common/variables";
+@import "../../common/mediaQuery";
+
+.container {
+  @include media-query-style;
+  margin: auto;
+  :global(.p-tabview .p-tabview-nav) {
+    border-width: 2px 0 2px 0;
+  }
+
+  :global(.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link) {
+    color: $PR_BLUE;
+    background-color: transparent;
+  }
+}
