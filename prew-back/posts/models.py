@@ -2,39 +2,34 @@ from django.db import models
 # from django.contrib.auth.models import User
 from django.conf import settings
 
-# # Create your models here.
-# class User(models.Model):
-#     user_name=models.CharField(max_length=20)
-#     email = models.CharField(max_length=255)
-#     nickname = models.CharField(max_length=10)
-#     profile_img = models.ImageField(upload_to="imgs/")
-#     my_comments = models.ManyToManyField(Comment,related_name='comment')
-#     my_posts = models.ManyToManyField(Post, related_name='my_post', blank=True)
-#     my_scraps = models.ManyToManyField(Post,related_name='post_scrap',blank=True)
-
-
-
 # Create your models here.
 class Post(models.Model):
     CATEGORY_CHOICES=(
-        ('스터디','스터디'),
-        ('프로젝트','프로젝트'),
-        ('공모전','공모전'),
+        ('인원모집','인원모집'),
         ('자유게시판','자유게시판'),
         ('공지사항','공지사항'),
         ('뉴스','뉴스'),
     )
+    TOPIC_CHOICES=(
+        ('스터디','스터디'),
+        ('프로젝트','프로젝트'),
+        ('공모전','공모전'),
+    )
+    PLACES_CHOICES=(
+        ('온라인', '온라인'),
+        ('오프라인','오프라인')
+    )
     category = models.CharField(default='공지사항',max_length=30,choices=CATEGORY_CHOICES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    topic = models.CharField(max_length=100)
-    total_personnel = models.IntegerField()
-    now_personnel = models.IntegerField()
-    place = models.CharField(max_length=100)
+    topic = models.CharField(max_length=30,choices=TOPIC_CHOICES, blank=True, null=True)
+    total_personnel = models.IntegerField(min_value=0, max_value=100)    # 0 ~ 100까지만 가능
+    now_personnel = models.IntegerField(min_value=0, max_value=100)     # 0 ~ 100까지만 가능
+    place = models.CharField(max_length=5,choices=PLACES_CHOICES)
     project_term = models.DateField()
-    language = models.CharField(max_length=100)
-    skill = models.CharField(max_length=100)
-    is_recruiting = models.BooleanField()
+    language = models.JSONField(default='[]')
+    skill = models.JSONField(default='[]')
+    is_recruiting = models.BooleanField(default=True)    # True: 모집중, False: 모집완료
     expired_date = models.DateTimeField()
     explain = models.TextField()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_like')
@@ -47,7 +42,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comment')
     content=models.TextField() # 임의
     likes=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='comment_like')
-    # is_secret = models.OneToOneField()
+    is_secret = models.BooleanField(default=False)    # True: 비밀댓글, False: 공개 댓글
     
