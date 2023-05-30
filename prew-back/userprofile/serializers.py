@@ -1,37 +1,27 @@
+from posts.serializers import CommentSerializer, PostSerializer
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import Comment,Profile, Posts
-
-class CommentSerializer(serializers.ModelSerializer):  #임의
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
-class PostSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, read_only=True)
-    class Meta:
-        model=Posts
-        fields = ['id', 'title', 'content', 'author', 'created_at', 'updated_at', 'likes', 'comments']
-
-
+from accounts.models import User
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    my_comments = serializers.SerializerMethodField()
-    my_posts = serializers.SerializerMethodField()
+    # my_comments = serializers.SerializerMethodField()
+    # my_posts = serializers.SerializerMethodField()
+    full_name = serializers.SerializerMethodField()
+    my_comments = CommentSerializer(many=True,read_only=True)
+    my_posts = PostSerializer(many=True, read_only=True)
+    likes = serializers.SerializerMethodField(read_only=True)
+    scraps = serializers.SerializerMethodField(read_only=True)
 
 
+    def get_full_name(self,obj):
+        return f"{obj.last_name} {obj.first_name}"
+    
+    def get_likes(self, obj):
+        return obj.post_like.values_list('pk',flat=True)
+    
+    def get_scraps(self, obj):
+        return obj.post_scrap.values_list('pk',flat=True)
+    
     class Meta:
-        model = Profile
-        fields = ['email','userName','nickName','profileImg','myComments','myPosts','myScraps','likes','created_at', 'updated_at']
-
-    def get_my_comments(self, obj):
-        comments = Comment.objects.filter(profile=obj)
-        serializer = CommentSerializer(comments, many=True)
-        return serializer.data
-
-    def get_my_posts(self, obj):
-        posts = Posts.objects.filter(userName=obj.user)
-        serializer = PostSerializer(posts, many=True)
-        return serializer.data
-
+        model = User
+        fields = ['username', 'full_name','email', 'nickname', 'profileImg','my_comments','my_posts','likes','scraps','created_at','updated_at' ]
