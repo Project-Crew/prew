@@ -3,6 +3,9 @@ from .models import Post
 from .forms import PostForm
 
 # Create your views here.
+
+
+
 def posts(request):
     if request.method == 'GET':
         posts = Post.object.all()

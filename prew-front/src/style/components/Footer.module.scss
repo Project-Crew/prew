@@ -1,0 +1,8 @@
+@import "../common/variables";
+@import "../common/mediaQuery";
+
+.container {
+  @include media-query-style;
+  margin: auto;
+  
+}
