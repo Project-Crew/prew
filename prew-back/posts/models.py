@@ -25,7 +25,7 @@ class Post(models.Model):
     topic = models.CharField(max_length=30,choices=TOPIC_CHOICES, blank=True, null=True)
     total_personnel = models.IntegerField(min_value=0, max_value=100)    # 0 ~ 100까지만 가능
     now_personnel = models.IntegerField(min_value=0, max_value=100)     # 0 ~ 100까지만 가능
-    place = models.CharField(max_length=5,choices=PLACES_CHOICES)
+    place = models.CharField(default='오프라인',max_length=5,choices=PLACES_CHOICES)
     project_term = models.DateField()
     language = models.JSONField(default='[]')
     skill = models.JSONField(default='[]')
