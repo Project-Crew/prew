@@ -1,6 +1,8 @@
 from django.db import models
 # from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 # Create your models here.
 class Post(models.Model):
@@ -20,15 +22,15 @@ class Post(models.Model):
         ('오프라인','오프라인')
     )
     category = models.CharField(default='공지사항',max_length=30,choices=CATEGORY_CHOICES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="my_posts")
     title = models.CharField(max_length=100)
     topic = models.CharField(max_length=30,choices=TOPIC_CHOICES, blank=True, null=True)
-    total_personnel = models.IntegerField(min_value=0, max_value=100)    # 0 ~ 100까지만 가능
-    now_personnel = models.IntegerField(min_value=0, max_value=100)     # 0 ~ 100까지만 가능
+    total_personnel = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])    # 0 ~ 100까지만 가능
+    now_personnel = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])     # 0 ~ 100까지만 가능
     place = models.CharField(default='오프라인',max_length=5,choices=PLACES_CHOICES)
     project_term = models.DateField()
-    language = models.JSONField(default='[]')
-    skill = models.JSONField(default='[]')
+    language = models.JSONField(default=dict)
+    skill = models.JSONField(default=dict)
     is_recruiting = models.BooleanField(default=True)    # True: 모집중, False: 모집완료
     expired_date = models.DateTimeField()
     explain = models.TextField()
@@ -41,7 +43,7 @@ class Post(models.Model):
     
 
 class Comment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="my_comments")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comment')
     content=models.TextField() # 임의
     likes=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='comment_like')
