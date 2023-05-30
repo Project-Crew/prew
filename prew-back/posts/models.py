@@ -16,7 +16,15 @@ from django.conf import settings
 
 # Create your models here.
 class Post(models.Model):
-    category = models.CharField(max_length=100)
+    CATEGORY_CHOICES=(
+        ('스터디','스터디'),
+        ('프로젝트','프로젝트'),
+        ('공모전','공모전'),
+        ('자유게시판','자유게시판'),
+        ('공지사항','공지사항'),
+        ('뉴스','뉴스'),
+    )
+    category = models.CharField(default='공지사항',max_length=30,choices=CATEGORY_CHOICES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     topic = models.CharField(max_length=100)
