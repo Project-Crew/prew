@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.posts),
-    path('<int:post_pk/>', views.post_detail),
+    path('<int:post_pk>/', views.post_detail),
     path('<int:post_pk>/comments/', views.comment),   # 댓글 쓰기
     # 1. 원래 api 설계
     # path('<int:post_pk>/comments/<int:comment_pk>/', views.comment_detail),
