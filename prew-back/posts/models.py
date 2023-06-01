@@ -34,8 +34,8 @@ class Post(models.Model):
     is_recruiting = models.BooleanField(default=True)    # True: 모집중, False: 모집완료
     expired_date = models.DateTimeField()
     explain = models.TextField()
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_like')
-    scraps = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_scrap')
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_like', blank=True, null=True)
+    scraps = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_scrap', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -46,6 +46,6 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="my_comments")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comment')
     content=models.TextField() # 임의
-    likes=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='comment_like')
+    likes=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='comment_like', blank=True, null=True)
     is_secret = models.BooleanField(default=False)    # True: 비밀댓글, False: 공개 댓글
     

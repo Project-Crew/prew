@@ -38,55 +38,68 @@ def post_detail(request, post_pk):
         return Response(serializer.data)
     
     elif request.method == 'DELETE':
-        if post.user == request.user:
+        user= User.objects.get(pk=1)    # 임시
+        if post.user == user:   # 임시
+        # if post.user == request.user:
             post.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'PUT':
         serializer = PostSerializer(post, data=request.data)
-        if post.user == request.user:
+        user= User.objects.get(pk=1)    # 임시
+        if post.user == user:   # 임시
+        # if post.user == request.user:
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def comment(request, post_pk):    # 비밀댓글 포함 -> serializers에서 처리
     post = get_object_or_404(Post, pk=post_pk)
+    user= User.objects.get(pk=1)    #임시
 
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save(user=request.user, post=post)
+        # serializer.save(user=request.user, post=post)
+        serializer.save(user=user, post=post)   # 임시
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def comment_detail(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
+    user= User.objects.get(pk=1)    #임시
+
     if request.method == 'GET':
         serializer = CommentSerializer(comment)
         return Response(serializer.data)
     
     elif request.method == 'PUT':
-        if comment.user == request.user:
+        # if comment.user == request.user:
+        if comment.user == user:    #임시
             serializer = CommentSerializer(comment, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
     
     elif request.method == 'DELETE':
-        if comment.user == request.user:
+        # if comment.user == request.user:
+        if comment.user == user:    #임시
             comment.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def like_post(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
-    user = request.user
+    # user = request.user
+    user= User.objects.get(pk=1)    #임시
+
     if post.likes.filter(pk=user.pk).exists():
         post.likes.remove(user)
         return Response(status=status.HTTP_200_OK)
@@ -95,10 +108,12 @@ def like_post(request, post_pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def scrap_post(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
-    user = request.user
+    # user = request.user
+    user= User.objects.get(pk=1)    #임시
+
     if post.scraps.filter(pk=user.pk).exists():
         post.scraps.remove(user)
         return Response(status=status.HTTP_200_OK)
@@ -107,10 +122,12 @@ def scrap_post(request, post_pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def like_comment(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
-    user = request.user
+    # user = request.user
+    user= User.objects.get(pk=1)    #임시
+    
     if comment.likes.filter(pk=user.pk).exists():
         comment.likes.remove(user)
         return Response(status=status.HTTP_200_OK)
