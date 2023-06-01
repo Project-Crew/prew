@@ -25,9 +25,14 @@ urlpatterns = [
     path('', include('accounts.urls')),
     # allauth url
     path('accounts/',include('allauth.urls')),
+
     # 비밀번호 변경 페이지는 프로젝트 urls.py에 등록
     path('password/change/', CustomPasswordChangeView.as_view(), name='account_change_password'),
 
     path('profile/',include('userprofile.urls')),
     path('posts/',include('posts.urls')),
+
+    # rest_auth
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/signup/', include('rest_auth.registration.urls')),
 ]

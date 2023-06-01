@@ -19,15 +19,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
     'userprofile',
     'posts',
     'accounts',
+
     'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'django_extensions',
     
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+
     # account 관련
     'django.contrib.auth',
     'django.contrib.messages',
@@ -50,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'prew.urls'
 
@@ -108,6 +115,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # allauth가 사용하는 backends 모델 => SNS 회원가입/로그인을 위함
     'allauth.account.auth_backends.AuthenticationBackend',
+    'rest_framework.authentication.TokenAuthentication',
 ]
 
 SITE_ID = 1
@@ -162,7 +170,8 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 
 
 # 이메일 인증을 성공해야 로그인 할 수 있음. "optional"은 인증 안해도 로그인 됨.
-ACCOUNT_EMAIL_VARIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VARIFICATION = "mandatory"
+ACCOUNT_EMAIL_VARIFICATION = "optional"
 
 # 이메일로 전송된 링크를 누르면 바로 회원가입이 완료됨.
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
@@ -173,6 +182,18 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "account_email_confirmation"
 
 # SNS로 가입한 계정 삭제(라기 보단 연동 해제)
 SOCIALACCOUNT_FORMS = {'disconnect': 'accounts.forms.MyCustomSocialDisconnectForm'}
+
+# REST Framework 인증 클래스 사용해서 token 발급
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # Session 인증
+        'rest_framework.authentication.SessionAuthentication',
+        # Token 인증
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+
 # -------------------------------------------------
 
 # Internationalization

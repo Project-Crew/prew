@@ -1,7 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from allauth.account.views import PasswordChangeView
 from allauth.socialaccount.forms import DisconnectForm
+
+from allauth.socialaccount.models import SocialToken
+from rest_framework.authtoken.models import Token
+from allauth.account.views import LoginView
+from rest_framework.response import Response
+from rest_framework.authtoken.views import ObtainAuthToken
 
 # Create your views here.
 
@@ -11,6 +17,14 @@ def index(request):
 
 def login(request):
     pass
+
+class CustomLoginView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
 
 def sign_up(request):
     pass
@@ -27,15 +41,14 @@ class CustomPasswordChangeView(PasswordChangeView):
         return reverse("index")
 
 
-def socialaccount_connections(request):
+# def socialaccount_connections(request):
+#     if request.method == 'POST':
+#         form = DisconnectForm(request.POST, initial={'account': account})
+#         if form.is_valid():
+#             form.save()
+#             return redirect('socialaccount_connections')
+#     else:
+#         form = DisconnectForm(initial={'account': account})
 
-    if request.method == 'POST':
-        form = DisconnectForm(request.POST, initial={'account': account})
-        if form.is_valid():
-            form.save()
-            return redirect('socialaccount_connections')
-    else:
-        form = DisconnectForm(initial={'account': account})
 
-
-    return render(request, 'socialaccount_connections.html', {'form': form})
+#     return render(request, 'socialaccount_connections.html', {'form': form})
