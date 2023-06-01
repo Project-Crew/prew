@@ -48,7 +48,7 @@ const MyPosts = () => {
     <ul className={styles.container}>
       {myPosts.length > 0 ? (
         myPosts.map((v) => (
-          <li className="flex target pt-4">
+          <li className="flex target py-3">
             <Tooltip target={`.title${v.id}`} mouseTrack>
               {v.title}
             </Tooltip>
