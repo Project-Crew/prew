@@ -1,0 +1,44 @@
+@import "./variables";
+
+@mixin screen-lg {
+  //1200px 이상 데스크탑 width: 1160px
+  @media (min-width: $screen-lg) {
+    @content;
+  }
+}
+@mixin screen-md {
+  // 992px ~ 1199px width: 940px
+  @media (min-width: $screen-md) and (max-width: #{$screen-lg - 1px}) {
+    @content;
+  }
+}
+@mixin screen-sm {
+  //768px ~ 991px  width: 720px
+  @media (min-width: $screen-sm) and (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+@mixin screen-xs {
+  // 0 ~ 767px  max-width:720px
+  @media (max-width: #{$screen-sm - 1px}) {
+    @content;
+  }
+}
+@mixin screen-xxs {
+  // 0 ~ 600px  max-width:720px
+  @media (max-width: #{600px - 1px}) {
+    @content;
+  }
+}
+
+@mixin media-query-style {
+  @include screen-lg {
+    width: 880px; //1160px
+  }
+  @include screen-md {
+    width: 940px;
+  }
+  @include screen-sm {
+    width: 750px;
+  }
+}

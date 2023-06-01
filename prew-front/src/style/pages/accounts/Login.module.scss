@@ -1,24 +1,42 @@
+@import "../../common/mediaQuery";
+
 .div {
+	@include media-query-style;
+	margin: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 30px;
-  .logo {
-    text-align: center;
-    .logoColor {
-      font-size: 35px;
-      background-image: linear-gradient(to right, #185adb, #8758ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
+	margin-top: 50px;
 
-	.form {
-		margin: 16px;
-		width: 400px;
+	.logo {
+		text-align: center;
+		.logoColor {
+		font-size: 35px;
+		background-image: linear-gradient(to right, #185adb, #8758ff);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		}
 	}
 
-	.left {
-		align-items: start;
+  	.formDiv {
+		margin-top: 20px;
+		
+		.form {
+			margin: 16px;
+			width: 400px;
+		}
+		
+		:global(.p-inputtext) {
+			width: 100%;
+		}
+		
+		:global(.p-password) {
+			width: 100%;
+		}
+		
+		.left {
+			align-items: start;
+		}
 	}
+	
 }
