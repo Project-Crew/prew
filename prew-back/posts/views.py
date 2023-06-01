@@ -4,6 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
 
+from accounts.models import User
+
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 
@@ -11,7 +13,7 @@ from .serializers import PostSerializer, CommentSerializer
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def posts(request):
     if request.method == 'GET':
         posts = get_list_or_404(Post)
@@ -21,7 +23,9 @@ def posts(request):
     elif request.method == 'POST':
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            user= User.objects.get(pk=1)    #임시
+            serializer.save(user=user)    #임시
+            # serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors)
 
