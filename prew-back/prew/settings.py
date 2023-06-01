@@ -19,30 +19,40 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # apps
     'userprofile',
     'posts',
     'accounts',
-
+    
+    # default setting
     'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'django_extensions',
-    
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'rest_auth.registration',
-
-    # account 관련
     'django.contrib.auth',
     'django.contrib.messages',
     'django.contrib.sites',
+
+    # django-extensions
+    'django_extensions',
+    
+    # DRF
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+
+    # dj-rest-auth
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    # CORS
+    'corsheaders',
+
+    # allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.naver',
 ]
@@ -55,8 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'prew.urls'
 
@@ -78,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'prew.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -88,7 +97,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -108,8 +116,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# ---------------------- CORS ---------------------------
 
-# ---------------------- allauth 관련 settings.py 수정 사항 ---------------------------
+CORS_ALLOWED_ORIGINS = [    
+'http://localhost:3000', 
+'http://localhost:8000',
+]
+
+# ---------------------- Secert Keys ---------------------------
+
+import json
+import sys
+BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = os.path.dirname(BASE_DIR)
+SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
+secrets = json.loads(open(SECRET_BASE_FILE).read())
+for key, value in secrets.items():
+    setattr(sys.modules[__name__], key, value)
+
+# ---------------------- account 관련 설정 ---------------------------
+
 AUTHENTICATION_BACKENDS = [
     # django에서 제공하는 기본 backends 모델 => 기본 회원가입/로그인을 위함
     'django.contrib.auth.backends.ModelBackend',
@@ -125,25 +151,10 @@ AUTH_USER_MODEL = "accounts.User"
 
 # console로 해두면 이메일이 콘솔창에 출력됨
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-# SOCIALACCOUNT_PROVIDERS = {
-    # Facebook
-        # 'APP': {
-        #     'client_id': '123',
-        #     'secret': '456',
-        #     'key': ''
-        # }
-        
-    # Google
-
-    # Kakao
-
-    # Naver
-# }
     
 # 회원가입 or 로그인 하고 나서 redirect할 페이지 설정 => 홈 화면 url이 어디인지?
-ACCOUNT_SIGNUP_REDIRECT_URL = 'index'
-LOGIN_REDIRECT_URL = 'index'
+# ACCOUNT_SIGNUP_REDIRECT_URL = 'index'
+# LOGIN_REDIRECT_URL = 'index'
 
 # 로그아웃 페이지 새로 안만들고 로그아웃 누르자 마자 바로 로그아웃 하게끔
 ACCOUNT_LOGOUT_ON_GET = True
@@ -171,14 +182,14 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 
 # 이메일 인증을 성공해야 로그인 할 수 있음. "optional"은 인증 안해도 로그인 됨.
 # ACCOUNT_EMAIL_VARIFICATION = "mandatory"
-ACCOUNT_EMAIL_VARIFICATION = "optional"
+# ACCOUNT_EMAIL_VARIFICATION = "optional"
 
 # 이메일로 전송된 링크를 누르면 바로 회원가입이 완료됨.
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 # 이메일 인증 완료했을 때 해당 name의 url로 redirect
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "account_email_confirmation"
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "account_email_confirmation"
+# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "account_email_confirmation"
+# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "account_email_confirmation"
 
 # SNS로 가입한 계정 삭제(라기 보단 연동 해제)
 SOCIALACCOUNT_FORMS = {'disconnect': 'accounts.forms.MyCustomSocialDisconnectForm'}
@@ -190,7 +201,28 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         # Token 인증
         'rest_framework.authentication.TokenAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
+}
+
+# cookie key 와 refresh cookie key 의 이름을 설정
+JWT_AUTH_COOKIE = 'sociallogin-auth'
+JWT_AUTH_REFRESH_COOKIE = 'sociallogin-refresh-token'
+
+# JWT 환경
+REST_USE_JWT = True
+
+# 토큰 수명 설정
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    # 토큰에 들어갈 알고리즘
+    'ALGORITHM': 'HS256',
+    # 토큰을 만드는데 사용할 secret key
+    'SIGNING_KEY': SECRET_KEY,
 }
 
 
