@@ -1,7 +1,13 @@
+@import "../common/variables";
+@import "../common/mediaQuery";
+:global(html, body) {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
 .container {
-  
-  // .childContainer {
-  //   max-width: 1189px;
-  //   margin: auto;
-  // }
+  // padding-bottom: 80px;
+  @include media-query-style;
+  .childContainer {
+  }
 }
