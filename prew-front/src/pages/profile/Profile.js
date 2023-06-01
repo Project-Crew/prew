@@ -3,7 +3,7 @@ import ProfileUserInfo from "./ProfileUserInfo";
 
 import { TabView, TabPanel } from "primereact/tabview";
 import MyPosts from "./MyPosts";
-import MyScrap from "./MyScrap";
+import MyScraps from "./MyScraps";
 import MyLikePosts from "./MyLikePosts";
 import MyComments from "./MyComments";
 import styles from "../../style/pages/profile/Profile.module.scss";
@@ -17,7 +17,7 @@ const Profile = () => {
           <MyPosts />
         </TabPanel>
         <TabPanel header="스크랩">
-          <MyScrap />
+          <MyScraps />
         </TabPanel>
         <TabPanel header="추천한 게시물">
           <MyLikePosts />
