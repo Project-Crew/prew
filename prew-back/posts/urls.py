@@ -1,8 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
+from .views import PostViewSet
+
+router = routers.DefaultRouter()
+router.register(r'', PostViewSet, basename='post')
 
 urlpatterns = [
-    path('', views.posts),
+    path('', include(router.urls)),
+    # path('', views.posts),
     path('<int:post_pk>/', views.post_detail),
     path('<int:post_pk>/comments/', views.comment),   # 댓글 쓰기
     # 1. 원래 api 설계

@@ -20,6 +20,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         # 다른 인증 클래스들...
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
     # 기타 설정들...
 }
 # Application definition
@@ -33,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'django_filters',
     
     # account 관련
     'django.contrib.auth',

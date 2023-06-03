@@ -1,33 +1,50 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
+from rest_framework import status, viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from accounts.models import User
 
-from .models import Post, Comment
+from .models import Post, PostFilter, Comment
 from .serializers import PostSerializer, CommentSerializer
 
 # Create your views here.
 
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PostFilter
 
-@api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
-def posts(request):
-    if request.method == 'GET':
-        posts = get_list_or_404(Post)
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
-    
-    elif request.method == 'POST':
-        serializer = PostSerializer(data=request.data)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user= User.objects.get(pk=1)    #임시
             serializer.save(user=user)    #임시
             # serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# @api_view(['GET', 'POST'])
+# # @permission_classes([IsAuthenticated])
+# def posts(request):
+#     if request.method == 'GET':
+#         posts = get_list_or_404(Post)
+#         serializer = PostSerializer(posts, many=True)
+#         return Response(serializer.data)
+    
+#     elif request.method == 'POST':
+#         serializer = PostSerializer(data=request.data)
+#         if serializer.is_valid():
+#             user= User.objects.get(pk=1)    #임시
+#             serializer.save(user=user)    #임시
+#             # serializer.save(user=request.user)
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors)
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def post_detail(request, post_pk):

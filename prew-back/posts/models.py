@@ -2,6 +2,7 @@ from django.db import models
 # from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django_filters import rest_framework as filters
 
 
 # Create your models here.
@@ -34,18 +35,32 @@ class Post(models.Model):
     is_recruiting = models.BooleanField(default=True)    # True: 모집중, False: 모집완료
     expired_date = models.DateTimeField()
     explain = models.TextField()
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_like', blank=True, null=True)
-    scraps = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_scrap', blank=True, null=True)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_like', blank=True)
+    scraps = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_scrap', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
-    
+
+
+class PostFilter(filters.FilterSet):
+    class Meta:
+        model = Post
+        fields = {
+            'category': ['exact'],
+            'topic': ['exact'],
+            'place': ['exact'],
+            'project_term': ['lte', 'gte'],
+            # 'language': ['contains'],
+            # 'skill': ['contains'],
+            'is_recruiting': ['exact'],
+        }
+
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="my_comments")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comment')
     content=models.TextField() # 임의
-    likes=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='comment_like', blank=True, null=True)
+    likes=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='comment_like', blank=True)
     is_secret = models.BooleanField(default=False)    # True: 비밀댓글, False: 공개 댓글
     
