@@ -29,23 +29,6 @@ class PostViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# @api_view(['GET', 'POST'])
-# # @permission_classes([IsAuthenticated])
-# def posts(request):
-#     if request.method == 'GET':
-#         posts = get_list_or_404(Post)
-#         serializer = PostSerializer(posts, many=True)
-#         return Response(serializer.data)
-    
-#     elif request.method == 'POST':
-#         serializer = PostSerializer(data=request.data)
-#         if serializer.is_valid():
-#             user= User.objects.get(pk=1)    #임시
-#             serializer.save(user=user)    #임시
-#             # serializer.save(user=request.user)
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors)
-
 @api_view(['GET', 'DELETE', 'PUT'])
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)

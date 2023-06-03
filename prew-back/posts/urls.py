@@ -8,7 +8,6 @@ router.register(r'', PostViewSet, basename='post')
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('', views.posts),
     path('<int:post_pk>/', views.post_detail),
     path('<int:post_pk>/comments/', views.comment),   # 댓글 쓰기
     # 1. 원래 api 설계
