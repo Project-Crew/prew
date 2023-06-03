@@ -26,6 +26,7 @@ django-cors-headers==4.0.0
 django-extensions==3.2.1
 django-rest-auth==0.9.5
 djangorestframework==3.14.0
+djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.2.2
 entrypoints==0.4
 executing==1.2.0
@@ -78,7 +79,7 @@ pure-eval==0.2.2
 pycodestyle==2.10.0
 pycparser==2.21
 Pygments==2.14.0
-PyJWT==2.7.0
+PyJWT==1.7.1
 pyrsistent==0.19.3
 python-dateutil==2.8.2
 python-json-logger==2.0.4
