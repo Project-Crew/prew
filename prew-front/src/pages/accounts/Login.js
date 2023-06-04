@@ -53,6 +53,7 @@ const Login = () => {
                 </div>
 
                 <p>SNS로 로그인 하기</p>
+
             </div>
         </div>
     );
