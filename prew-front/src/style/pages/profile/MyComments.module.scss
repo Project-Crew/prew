@@ -1,0 +1,22 @@
+@import "../../common/variables";
+@import "../../common/mediaQuery";
+.container {
+  li:not(:last-child) {
+    border-bottom: 1px solid $PR_BORDER;
+  }
+  li {
+    .btnGroup {
+      button {
+        width: 50px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+    &:hover {
+      color: $PR_BLUE;
+      cursor: pointer;
+    }
+  }
+}

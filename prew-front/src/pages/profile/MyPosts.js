@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../style/pages/profile/MyPosts.module.scss";
-import classNames from "classnames/bind";
 import { Tooltip } from "primereact/tooltip";
 import NoPosts from "../../components/NoPosts";
+import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 const MyPosts = () => {
   const [myPosts, setMyPosts] = useState([]);
