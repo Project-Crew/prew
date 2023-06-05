@@ -1,0 +1,13 @@
+@import "../../common/variables";
+@import "../../common/mediaQuery";
+.container {
+  li:not(:last-child) {
+    border-bottom: 1px solid $PR_BORDER;
+  }
+  li {
+    &:hover {
+      color: $PR_BLUE;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@import "../../common/mediaQuery";
+
+.div {
+	@include media-query-style;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+
+	.logo {
+		text-align: center;
+		.logoColor {
+		font-size: 35px;
+		background-image: linear-gradient(to right, #185adb, #8758ff);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		}
+	}
+
+  	.labelDiv {
+		margin-top: 20px;
+
+		:global(.p-scrollpanel .p-scrollpanel-bar) {
+			background-color: #185adb;
+		}
+
+		:global(.p-scrollpanel-content) {
+			margin-top: 20px;
+		}
+
+		.label {
+			margin: 20px;
+			width: 500px;
+		}
+	}
+	
+  	.formDiv {
+		margin-top: 20px;
+		
+		.form {
+			margin: 16px;
+			width: 400px;
+		}
+		
+        // :global(#email) {
+        //     width: auto;
+        //     display: inline-flex;
+        //     justify-content: space-between;
+        // }
+
+		:global(.p-inputtext) {
+			width: 100%;
+		}
+		
+		:global(.p-password) {
+			width: 100%;
+		}
+		
+		.left {
+			align-items: start;
+		}
+
+        .between {
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        .button {
+            margin-left: 10px;
+        }
+	}
+	
+}

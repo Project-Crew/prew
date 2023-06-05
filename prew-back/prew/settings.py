@@ -15,7 +15,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        # 다른 인증 클래스들...
+    ],
+    # 기타 설정들...
+}
 # Application definition
 
 INSTALLED_APPS = [
