@@ -1,5 +1,16 @@
-# from django import forms
-# from .models import User
+from django import forms
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm 
+from .models import User 
+
+class CustomUserCreationForm(UserCreationForm):    
+    class Meta:        
+        model = User        
+        fields = ('email', )  
+class CustomUserChangeForm(UserChangeForm):    
+    class Meta:        
+        model = User        
+        fields = UserChangeForm.Meta.fields
+
 
 # class SignupForm(forms.ModelForm):    
 #     username = forms.CharField(label=('username'), max_length=30, widget=forms.TextInput(attrs={'placeholder': ('username'), }))

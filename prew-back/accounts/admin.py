@@ -1,7 +1,14 @@
 from django.contrib import admin
-from .models import User
 from django.contrib.auth.admin import UserAdmin
+from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .models import User
 
-admin.site.register(User, UserAdmin)
+class CustomUserAdmin(UserAdmin):    
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = User
+    list_display = ['email']
+
+admin.site.register(User, CustomUserAdmin)
 # UserAdmin.fieldsets += (("Custom fields", {"fields": ("nickname",)}),)
 

@@ -15,19 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from accounts.views import CustomPasswordChangeView
+# from accounts.views import CustomPasswordChangeView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # project url
-    path('', include('accounts.urls')),
-    # allauth url
-    path('accounts/',include('allauth.urls')),
-    # 비밀번호 변경 페이지는 프로젝트 urls.py에 등록
-    path('password/change/', CustomPasswordChangeView.as_view(), name='account_change_password'),
-
-    path('profile/',include('userprofile.urls')),
-    path('posts/',include('posts.urls')),
+    # accounts mapping
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('dj_rest_auth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
