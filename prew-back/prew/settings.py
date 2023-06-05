@@ -192,7 +192,7 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 # ACCOUNT_EMAIL_VARIFICATION = "optional"
 
 # 이메일로 전송된 링크를 누르면 바로 회원가입이 완료됨.
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 # 이메일 인증 완료했을 때 해당 name의 url로 redirect
 # ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "account_email_confirmation"
