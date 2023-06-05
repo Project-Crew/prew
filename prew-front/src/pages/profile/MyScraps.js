@@ -83,7 +83,7 @@ const MyScraps = () => {
     <ul className={styles.container}>
       {dummyPosts.length > 0 ? (
         dummyPosts.map((v) => (
-          <li className={cx("flex py-2")}>
+          <li className={cx("flex py-3")}>
             <div key={v.id} className="flex align-items-center pr-4">
               {/* <input type="checkbox" /> */}
               {/* <Controller
