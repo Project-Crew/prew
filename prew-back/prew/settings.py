@@ -15,13 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        # 다른 인증 클래스들...
-    ],
-    # 기타 설정들...
-}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -156,7 +150,14 @@ SITE_ID = 1
 AUTH_USER_MODEL = "accounts.User"
 
 # console로 해두면 이메일이 콘솔창에 출력됨
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# smtp로 해두면 이메일 전송됨
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.naver.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '네이버아이디'
+EMAIL_HOST_PASSWORD = '네이버 비밀번호'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = '네이버 이메일'
     
 # 회원가입 or 로그인 하고 나서 redirect할 페이지 설정 => 홈 화면 url이 어디인지?
 # ACCOUNT_SIGNUP_REDIRECT_URL = 'index'
