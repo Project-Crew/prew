@@ -9,9 +9,9 @@ urlpatterns = [
     # path('<int:post_pk>/comments/<int:comment_pk>/', views.comment_detail),
     # 2. 수정 -> post_pk 필요 x
     path('comments/<int:comment_pk>/', views.comment_detail),   # 댓글 조회, 수정, 삭제
-    
     path('<int:post_pk>/like/', views.like_post),
     path('<int:post_pk>/scrap/', views.scrap_post),
     path('comments/<int:comment_pk>/like/', views.like_comment),
+    path('search/',views.search),
     path('news_API/', views.news_API),
 ]

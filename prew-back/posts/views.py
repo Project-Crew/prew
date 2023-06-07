@@ -134,5 +134,16 @@ def like_comment(request, comment_pk):
     comment.likes.add(user)
     return Response(status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def search(request):
+    keyword = request.GET.get('keyword','')
+    queryset = Post.objects.filter(
+        Q(title__icontains=keyword)|
+        Q(content__icontains=keyword))
+    serializer = PostSerializer(queryset, many = True)
+    
+    return Response(serializer.data)
+
+
 def news_API(request):
     pass

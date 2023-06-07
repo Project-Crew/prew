@@ -24,6 +24,7 @@ class Post(models.Model):
     category = models.CharField(default='공지사항',max_length=30,choices=CATEGORY_CHOICES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="my_posts")
     title = models.CharField(max_length=100)
+    content = models.TextField()
     topic = models.CharField(max_length=30,choices=TOPIC_CHOICES, blank=True, null=True)
     total_personnel = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])    # 0 ~ 100까지만 가능
     now_personnel = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])     # 0 ~ 100까지만 가능
