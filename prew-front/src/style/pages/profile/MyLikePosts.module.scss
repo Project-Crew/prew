@@ -1,0 +1,23 @@
+@import "../../common/variables";
+@import "../../common/mediaQuery";
+
+.container {
+  li:not(:last-child) {
+    border-bottom: 1px solid $PR_BORDER;
+  }
+  li {
+    list-style: none;
+    width: 100%;
+    .title {
+    }
+    .date {
+    }
+    &:hover {
+      color: $PR_BLUE;
+      cursor: pointer;
+    }
+  }
+}
+:global(.p-tabview .p-tabview-panels) {
+  padding: 0;
+}
