@@ -20,7 +20,7 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_class = PostFilter
 
     def create(self, request, *args, **kwargs):
-        print("create")
+        
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user= User.objects.get(pk=1)    #임시
@@ -33,7 +33,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def post_detail(request, post_pk):
-    print("post_detail!!!!!!!!!!!")
     post = get_object_or_404(Post, pk=post_pk)
     if request.method == 'GET':
         serializer = PostSerializer(post)
@@ -139,18 +138,11 @@ def like_comment(request, comment_pk):
 @api_view(['GET'])
 def search_post(request):
     
-    print("queryset?!!!")
     if request.method == 'GET':
-        print("search 입니다!!")
         keyword = request.GET.get('keyword','')
         queryset = Post.objects.filter(Q(title__icontains=keyword)|Q(contents__icontains=keyword))
         serializer = PostSerializer(queryset, many = True)
         return Response(serializer.data)
-
-@api_view(['GET'])
-def test_post(request):
-    post = get_list_or_404(Post)
-    print('test!!!!!??????????!!!!!!')
 
 def news_API(request):
     pass
