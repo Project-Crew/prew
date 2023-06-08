@@ -4,10 +4,11 @@ from rest_framework import routers
 from .views import PostViewSet
 
 router = routers.DefaultRouter()
-router.register(r'', PostViewSet, basename='post')
+router.register(r'', PostViewSet, basename='posts')
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('search/',views.search_post),
+    path('test_post/',views.test_post),
     path('<int:post_pk>/', views.post_detail),
     path('<int:post_pk>/comments/', views.comment),   # 댓글 쓰기
     # 1. 원래 api 설계
@@ -18,5 +19,8 @@ urlpatterns = [
     path('<int:post_pk>/like/', views.like_post),
     path('<int:post_pk>/scrap/', views.scrap_post),
     path('comments/<int:comment_pk>/like/', views.like_comment),
+    
     path('news_API/', views.news_API),
+    path('', include(router.urls)),
+    
 ]
