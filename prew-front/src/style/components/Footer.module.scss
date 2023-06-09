@@ -4,5 +4,20 @@
 .container {
   @include media-query-style;
   margin: auto;
-  
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+	.logoColor {
+		font-size: 24px;
+    font-weight: 800;
+		background-image: linear-gradient(to right, #185adb, #8758ff);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+  .copyright {
+    margin-left: 16px;
+  }
 }
