@@ -1,6 +1,19 @@
 import { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Login, SignUp, FindPassword, DeleteUser, Profile, PostsList, Post, PostsWriting, NotFound } from "./modules/components";
+import {
+  Home,
+  Login,
+  SignUp,
+  CheckUserPassword,
+  ChangeUserInfo,
+  FindPassword,
+  DeleteUser,
+  Profile,
+  PostsList,
+  Post,
+  PostsWriting,
+  NotFound,
+} from "./modules/components";
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 //core
@@ -20,6 +33,14 @@ function App() {
             <Route path="/accounts/find-password" element={<FindPassword />} />
             <Route path="/accounts/unregister" element={<DeleteUser />} />
             <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile/check-password"
+              element={<CheckUserPassword />}
+            />
+            <Route
+              path="/profile/change-password"
+              element={<ChangeUserInfo />}
+            />
             <Route path="/posts/posts-list" element={<PostsList />} />
             <Route path="/posts/:postsId" element={<Post />} />
             <Route path="/posts/posts-writing" element={<PostsWriting />} />

@@ -5,8 +5,9 @@ import { BsPencil } from "react-icons/bs";
 import styles from "../../style/pages/profile/ProfileUserInfo.module.scss";
 import classNames from "classnames/bind";
 import { Button } from "primereact/button";
+import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
-const ProfileUserInfo = () => {
+const ProfileUserInfo = ({ checkUser }) => {
   return (
     <div className="pt-8 pb-5">
       <div className="h-8rem flex align-items-center">
@@ -34,11 +35,23 @@ const ProfileUserInfo = () => {
           </div>
           <div>eunhee@naver.com</div>
           <div>
-            <Button
-              className="mr-3 py-2 text-sm"
-              label="비밀번호 변경하러 가기"
-            />
-            <Button className="py-2 text-sm" label="닉네임 변경하러 가기" />
+            <Button className="mr-3 p-0">
+              {checkUser ? (
+                <Link
+                  to="/profile"
+                  className="text-white text-sm font-semibold w-full py-2 px-3"
+                >
+                  프로필로 돌아가기
+                </Link>
+              ) : (
+                <Link
+                  to="/profile/check-password"
+                  className="text-white text-sm font-semibold w-full py-2 px-3"
+                >
+                  회원 정보 수정
+                </Link>
+              )}
+            </Button>
           </div>
         </div>
       </div>
