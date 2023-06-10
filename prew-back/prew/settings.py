@@ -70,6 +70,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+# CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_HTTPONLY = True
+
 ROOT_URLCONF = 'prew.urls'
 
 TEMPLATES = [

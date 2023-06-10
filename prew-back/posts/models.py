@@ -25,6 +25,7 @@ class Post(models.Model):
     category = models.CharField(default='공지사항',max_length=30,choices=CATEGORY_CHOICES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="my_posts")
     title = models.CharField(max_length=100)
+    contents = models.TextField(null=True)
     topic = models.CharField(max_length=30,choices=TOPIC_CHOICES, blank=True, null=True)
     total_personnel = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])    # 0 ~ 100까지만 가능
     now_personnel = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])     # 0 ~ 100까지만 가능
@@ -33,7 +34,7 @@ class Post(models.Model):
     language = models.JSONField(default=dict)
     skill = models.JSONField(default=dict)
     is_recruiting = models.BooleanField(default=True)    # True: 모집중, False: 모집완료
-    expired_date = models.DateTimeField()
+    expired_date = models.DateField()
     explain = models.TextField()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_like', blank=True)
     scraps = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='post_scrap', blank=True)
