@@ -34,7 +34,7 @@ const SignUp = () => {
 
     const onClick = () => {
         setStep((prev) => prev + 1);
-      };
+    };
 
     const allCheckClick = useCallback((checked) => {
       if (checked) {
