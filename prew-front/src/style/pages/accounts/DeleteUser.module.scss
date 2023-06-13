@@ -1,0 +1,64 @@
+@import "../../common/mediaQuery";
+
+.div {
+	@include media-query-style;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	margin-top: 50px;
+
+	.span {
+		font-weight: 300;
+		font-size: medium;
+		margin-left: 8px;
+	}
+
+	.box {
+		background-color: $PR_BLACK;
+	}
+
+	.blue {
+		color: $PR_BLUE;
+		font-weight: 600;
+		margin: 20px 0;
+		font-size: medium;
+	}
+
+	.numBox {
+		display: inline-flex;
+		margin-top: 40px;
+
+		.round {
+			border: 2px solid $PR_BLACK;
+			width: 10%;
+			height: auto;
+			border-radius: 100%;
+			text-align: center;
+			padding: 2% 0;
+			font-weight: 500;
+			font-size: x-large;
+			color: $PR_BLACK;
+			box-sizing: border-box;
+		}
+
+		.text {
+			font-weight: 300;
+			margin-left: 20px;
+
+			.title {
+				font-weight: 700;
+				margin-bottom: 8px;
+			}
+		}
+	}
+
+	.buttonBox {
+		text-align: center;
+		flex-direction: column;
+		
+		.button {
+			width: 50%;
+		}
+	}
+}
